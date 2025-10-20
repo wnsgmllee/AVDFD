@@ -1,18 +1,8 @@
 """
-vox2_wav_from_hf_simple.py
-
-- 🤗 Datasets(streaming)으로 gaunernst/voxceleb2-dev-wds를 로드
-- 각 샘플의 m4a 오디오만 추출하여 __key__ 기반 원래 폴더 구조로 *.wav 저장
-- 병렬 변환: ffmpeg 프로세스를 CPU 코어 수에 맞춰 자동 병렬 실행
-- 진행 상황: tqdm
-- 기본값:
-    * 샘플레이트, 채널수: 원본 유지
-    * 덮어쓰기 안 함(이미 존재하면 스킵)
-    * in-flight 작업 수: CPU 코어 수 * 4 (메모리 과점유 방지용 완충)
-- 필요 인자:
-    * --out-dir : 출력 루트 디렉터리 (필수)
+Hugging Face의 gaunernst/voxceleb2-dev-wds(streaming)에서 샘플을 하나씩 읽고, 
+FakeAVCeleb RealVideo-RealAudio에 존재하는 ID만 필터링한 뒤, 각 샘플의 m4a 오디오를 ffmpeg로 WAV로 변환해서 
+원래 key 기반 폴더 구조(idXXXXXX/<yt_id>/<seg>.wav)로 저장. 이미 존재하는 wav는 기본적으로 건너뛰고, CPU 코어 수에 맞춰 변환을 병렬로 수행.
 """
-
 
 import argparse
 from pathlib import Path

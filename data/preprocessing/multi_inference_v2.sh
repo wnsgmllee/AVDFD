@@ -1,22 +1,22 @@
 #!/usr/bin/bash
 
-#SBATCH -J RVFA_Refine
-#SBATCH --gres=gpu:8
+#SBATCH -J seedVC
+#SBATCH --gres=gpu:4
 #SBATCH --cpus-per-gpu=8
 #SBATCH --mem-per-gpu=29G
 #SBATCH -p batch_ugrad
-#SBATCH -t 2-0
+#SBATCH -t 0-23
 #SBATCH -o logs/slurm-%A.out
-#SBATCH --nodelist=ariel-v8
+#SBATCH --nodelist=ariel-v6
 
 # ==== 임시 작업 디렉토리(큰 디스크) ====
 TMP_DIR="/data2/local_datasets/jhlee39/tmp"   # 존재하지 않으면 자동 생성됨
 export TMPDIR="$TMP_DIR"
 
 # ==== 사용자가 바꿀 곳 (필수 경로 3개) ====
-SRC_ROOT="/data2/local_datasets/jhlee39/FakeAVCeleb_Refine/FakeAVCeleb_v1.2/RealVideo-RealAudio"
-DST_ROOT="/data2/local_datasets/jhlee39/FakeAVCeleb_Refine/FakeAVCeleb_v1.2/RealVideo-FakeAudio-Refine"
-VOX_ROOT="/data2/local_datasets/jhlee39/FakeAVCeleb_Refine/voxceleb_v2/data"
+SRC_ROOT="/data2/local_datasets/jhlee39/FakeAVCeleb_v1.2/RealVideo-RealAudio"
+DST_ROOT="/data2/local_datasets/jhlee39/FakeAVCeleb_v1.2/RealVideo-FakeAudio-Refine"
+VOX_ROOT="/data2/local_datasets/jhlee39/voxceleb_v2/data"
 
 # ==== 모델 캐시를 ./models로 고정 (원하면 절대경로로) ====
 LOCAL_MODELS="./models"
