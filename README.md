@@ -26,7 +26,9 @@ Do not install additional requirements here — the rest will be handled later a
 
 ---
 
-## 📦 Step 1. VoxCeleb2 Download (filtered by RVRA IDs)
+## 📦 Step 1. Dataset Download (VoxCeleb2 + FakeAVCeleb)
+
+### 1-1️⃣ VoxCeleb2 Download (filtered by RVRA IDs)
 
 Run the following script to download only the speaker IDs that exist in the RealVideo-RealAudio (RVRA) portion of FakeAVCeleb.  
 This filtered download is less than 12 GB in total.
@@ -50,6 +52,24 @@ conda install -c conda-forge hf_transfer -y
 ```
 
 ⚠️ **Warning:** The full VoxCeleb2 dataset is extremely large. Use the selective version unless you have sufficient SSD/NAS storage.
+
+---
+
+### 1-2️⃣ FakeAVCeleb Download
+
+Download **FakeAVCeleb_v1.2** into the following directory:
+
+```
+data/FakeAVCeleb_Refine/FakeAVCeleb_v1.2/
+```
+
+📄 **How to download:**  
+Please refer to the instructions in:
+```
+data/FakeAVCeleb_Refine/FakeAVCeleb_v1.2/README.md
+```
+
+⚠️ This dataset is required for generating the Refined RVFA dataset in later steps.
 
 ---
 
@@ -162,10 +182,7 @@ Download **Stage2 Weights** from the [OpenAVFF repository](https://github.com/Jo
 Inside the `OpenAVFF` folder, run the following code:
 
 ```bash
-python convert_stage2_to_stage3.py \
---stage2 checkpoints/stage2_pretrained.pth \
--out checkpoints/stage3_init_from_stage2.pth \
---num_classes 2
+python convert_stage2_to_stage3.py --stage2 checkpoints/stage2_pretrained.pth -out checkpoints/stage3_init_from_stage2.pth --num_classes 2
 ```
 
 ---
