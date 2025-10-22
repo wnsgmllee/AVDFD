@@ -1,12 +1,14 @@
-# 🧩 Refined RVFA Dataset Preparation
+# Voice-Cloned Deepfake Detection with Refined Cross-Modal Hard Samples
 
-This document describes how to generate the **Refined RealVideo-FakeAudio (RVFA)** dataset.  
-The process is based on **Conda environments**, and after completing all steps,  
-you will have a refined version of the RVFA dataset ready for training.
+Recent advances in voice cloning enable the creation of highly synchronized yet semantically fake audio, challenging traditional audio-visual deepfake detectors that rely mainly on lip–speech misalignment.
+This project introduces a detection framework that explicitly targets voice-cloned deepfakes with near-perfect synchronization, focusing on subtle cross-modal inconsistencies rather than temporal mismatches.
+
+To support this, we construct Refined RealVideo–FakeAudio (RVFA) — a hard, voice-cloned variant of the FakeAVCeleb dataset — where the original speech is replaced by personalized cloned voices while preserving the temporal structure.
+This refined dataset serves as a challenging benchmark to push the boundary of next-generation deepfake detection methods.
 
 ---
 
-## 🧱 Step 0. Environment Setup (Preprocessing)
+## Step 0. Environment Setup (Preprocessing)
 
 Move to the preprocessing directory and create the environment named `preprocessing`.
 
@@ -16,7 +18,7 @@ conda create -n preprocessing python=3.10 -y
 conda activate preprocessing
 ```
 
-### ⚙️ Recommended PyTorch version (for CUDA 12.x)
+### Recommended PyTorch version (for CUDA 12.x)
 
 ```bash
 pip install torch==2.4.0 torchvision==0.19.0 torchaudio==2.4.0
@@ -26,7 +28,7 @@ Do not install additional requirements here — the rest will be handled later a
 
 ---
 
-## 📦 Step 1. Dataset Download (VoxCeleb2 + FakeAVCeleb)
+## Step 1. Dataset Download (VoxCeleb2 + FakeAVCeleb)
 
 ### 1-1️⃣ VoxCeleb2 Download (filtered by RVRA IDs)
 
@@ -60,10 +62,10 @@ conda install -c conda-forge hf_transfer -y
 Download **FakeAVCeleb_v1.2** into the following directory:
 
 ```
-data/FakeAVCeleb_Refine/FakeAVCeleb_v1.2/
+data/FakeAVCeleb_Refine/
 ```
 
-📄 **How to download:**  
+**How to download:**  
 Please refer to the instructions in:
 ```
 data/FakeAVCeleb_Refine/FakeAVCeleb_v1.2/README.md
@@ -73,7 +75,7 @@ data/FakeAVCeleb_Refine/FakeAVCeleb_v1.2/README.md
 
 ---
 
-## 🧬 Step 2. Voice Cloning (Seed-VC)
+## Step 2. Voice Cloning (Seed-VC)
 
 Refined RVFA is created using **Seed-VC: Towards Voice Conversion for All with Seed Learning**,  
 a state-of-the-art open-source voice conversion model.  
@@ -110,7 +112,7 @@ mv data/preprocessing/multi_inference_v2.py seed-vc/
 mv data/preprocessing/multi_inference_v2.sh seed-vc/
 ```
 
-🧩 These scripts automatically generate Refined RVFA:
+These scripts automatically generate Refined RVFA:
 
 - **hardest** → self-reference case  
 - **harder** → ECAPA-selected reference case  
@@ -131,7 +133,7 @@ Use the provided SLURM script to process all files:
 sbatch multi_inference_v2.sh
 ```
 
-⚙️ **Key arguments inside the script:**
+**Key arguments inside the script:**
 - `SRC_ROOT`: Path to RealVideo-RealAudio  
 - `DST_ROOT`: Output path (RealVideo-FakeAudio-Refine)  
 - `VOX_ROOT`: VoxCeleb2 data path  
@@ -151,7 +153,7 @@ After completion, both harder and hardest versions of Refined RVFA will be gener
 
 ---
 
-## 🧱 Step 3. Main Environment Setup (AVDFD)
+## Step 3. Main Environment Setup (AVDFD)
 
 Now we create the main training environment named `AVDFD`.  
 We use a separate environment because **Seed-VC** and **OpenAVFF** have conflicting dependencies.
@@ -187,7 +189,7 @@ python convert_stage2_to_stage3.py --stage2 checkpoints/stage2_pretrained.pth -o
 
 ---
 
-## 🚀 Step 4. Training
+## Step 4. Training
 
 You can now train your model using the generated data located in:
 
@@ -200,7 +202,7 @@ Training scripts are available in the `train/` directory.
 
 ---
 
-## 📁 Directory Structure Example
+## 📁 Dataset Directory Structure Example
 
 ```bash
 FakeAVCeleb_v1.2/
@@ -212,11 +214,5 @@ FakeAVCeleb_v1.2/
 │   └── hardest/
 │       ├── race/gender/id00001/clip001.mp4
 │       └── ...
-├── data/
-│   └── preprocessing/
-│       └── seed-vc/
-│           ├── multi_inference_v2.py
-│           ├── multi_inference_v2.sh
-│           └── ...
-└── train/
+└── 
 ```
