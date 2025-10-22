@@ -1,0 +1,122 @@
+current mae loss 1.000, and contrastive loss 0.010
+[INFO] Model saving is DISABLED. No checkpoints will be written.
+Dataset has 1520 samples
+now using following mask: 0 freq, 0 time
+now using mix-up with rate 0.000000
+use dataset mean -5.081 and std 4.485 to normalize the input.
+now use noise augmentation
+now in train mode.
+now using 224 * 224 image input
+Dataset has 480 samples
+now using following mask: 0 freq, 0 time
+now using mix-up with rate 0.000000
+use dataset mean -5.081 and std 4.485 to normalize the input.
+not use noise augmentation
+now in eval mode.
+now using 224 * 224 image input
+Using Train: 760, Eval: 240
+Missing: []
+Unexpected: []
+now load pretrain model from ../checkpoints/stage3_init_from_stage2.pth, missing keys: 0, unexpected keys: 0
+
+ Creating experiment directory (logs only): ../checkpoints/stage3_custom
+Now start training for 10000 epochs
+Total parameter number is : 187.015 million
+Total trainable parameter number is : 185.811 million
+base lr, mlp lr :  3e-05 0.0015
+Total newly initialized MLP parameter number is : 6.887 million
+Total pretrained backbone parameter number is : 180.128 million
+current #steps=0, #epochs=1
+start training...
+---------------
+2025-10-21 14:20:51.014209
+current #epochs=1, #steps=0
+[[14:20:5114:20:51] ] /github/workspace/src/video/video_reader.cc/github/workspace/src/video/video_reader.cc::8383: : ERROR opening: ERROR opening: /data2/local_datasets/jhlee39/FakeAVCeleb_v1.2/RealVideo-RealAudio/Caucasian (American)/women/id00261/00048.mp4/data2/local_datasets/jhlee39/FakeAVCeleb_v1.2/RealVideo-RealAudio/Asian (South)/men/id04554/00118.mp4, , No such file or directoryNo such file or directory
+
+[[[[14:20:5114:20:51] ] /github/workspace/src/video/video_reader.cc/github/workspace/src/video/video_reader.cc::8383: : ERROR opening: ERROR opening: 14:20:51/data2/local_datasets/jhlee39/FakeAVCeleb_v1.2/FakeVideo-FakeAudio/Caucasian (European)/men/id00498/00014_4_id00187_wavtolip.mp4] 14:20:51/data2/local_datasets/jhlee39/FakeAVCeleb_v1.2/FakeVideo-FakeAudio/African/men/id01637/00002_1_id01610_wavtolip.mp4, /github/workspace/src/video/video_reader.cc] No such file or directory:/github/workspace/src/video/video_reader.cc, 
+:83No such file or directory: 83
+: ERROR opening: ERROR opening: /data2/local_datasets/jhlee39/FakeAVCeleb_v1.2/FakeVideo-RealAudio/Asian (East)/women/id08402/00092_id00363_wavtolip.mp4/data2/local_datasets/jhlee39/FakeAVCeleb_v1.2/FakeVideo-RealAudio/Asian (South)/men/id04928/00027_id00032_AQMDc6SKNXs.mp4, , No such file or directoryNo such file or directory
+
+[14:20:51] /github/workspace/src/video/video_reader.cc:83: ERROR opening: /data2/local_datasets/jhlee39/FakeAVCeleb_v1.2/FakeVideo-RealAudio/Asian (East)/men/id04222/00078_id00863_wavtolip.mp4, No such file or directory
+[14:20:51] /github/workspace/src/video/video_reader.cc:83: ERROR opening: /data2/local_datasets/jhlee39/FakeAVCeleb_v1.2/FakeVideo-RealAudio/Caucasian (European)/men/id01157/00048_id00063_cVZBXC2rjPM.mp4, No such file or directory
+[[14:20:5114:20:51] ] /github/workspace/src/video/video_reader.cc/github/workspace/src/video/video_reader.cc::8383: : ERROR opening: ERROR opening: /data2/local_datasets/jhlee39/FakeAVCeleb_v1.2/FakeVideo-FakeAudio/African/men/id01170/00021_id00166_wavtolip.mp4/data2/local_datasets/jhlee39/FakeAVCeleb_v1.2/FakeVideo-FakeAudio/Caucasian (European)/women/id01002/00043_id00188_e-vm5FB3idA_id00232_wavtolip.mp4, , No such file or directoryNo such file or directory
+
+[14:20:51] /github/workspace/src/video/video_reader.cc:83: ERROR opening: /data2/local_datasets/jhlee39/FakeAVCeleb_v1.2/FakeVideo-RealAudio/African/men/id02005/00052_id00076_Isiq7cA-DNE.mp4, No such file or directory
+[14:20:51] /github/workspace/src/video/video_reader.cc:83: ERROR opening: /data2/local_datasets/jhlee39/FakeAVCeleb_v1.2/FakeVideo-RealAudio/Caucasian (American)/women/id02464/00002_0.mp4, No such file or directory
+[14:20:51] /github/workspace/src/video/video_reader.cc:83: ERROR opening: /data2/local_datasets/jhlee39/FakeAVCeleb_v1.2/FakeVideo-FakeAudio/Asian (South)/men/id04928/00027_id00032_AQMDc6SKNXs_id00816_wavtolip.mp4, No such file or directory
+[14:20:51] /github/workspace/src/video/video_reader.cc:83: ERROR opening: /data2/local_datasets/jhlee39/FakeAVCeleb_v1.2/RealVideo-RealAudio/Caucasian (American)/women/id03556/00043.mp4, No such file or directory
+[14:20:51] /github/workspace/src/video/video_reader.cc:83: ERROR opening: /data2/local_datasets/jhlee39/FakeAVCeleb_v1.2/FakeVideo-FakeAudio/Asian (East)/men/id07338/00003_id00056_wavtolip.mp4, No such file or directory
+[14:20:51] /github/workspace/src/video/video_reader.cc:83: ERROR opening: /data2/local_datasets/jhlee39/FakeAVCeleb_v1.2/FakeVideo-RealAudio/Asian (South)/men/id07463/00028_id00032_wavtolip.mp4, No such file or directory
+[14:20:51] /github/workspace/src/video/video_reader.cc:83: ERROR opening: /data2/local_datasets/jhlee39/FakeAVCeleb_v1.2/FakeVideo-RealAudio/African/women/id02071/00195_id00359_RZMQan-7me4.mp4, No such file or directory
+[14:20:51] /github/workspace/src/video/video_reader.cc:83: ERROR opening: /data2/local_datasets/jhlee39/FakeAVCeleb_v1.2/FakeVideo-RealAudio/Asian (East)/men/id00740/00015_id00560_HCZHIOhZ6XM.mp4, No such file or directory
+[14:20:51] /github/workspace/src/video/video_reader.cc:83: ERROR opening: /data2/local_datasets/jhlee39/FakeAVCeleb_v1.2/FakeVideo-FakeAudio/Caucasian (European)/women/id00806/00005_id00287_wavtolip.mp4, No such file or directory
+[14:20:51] /github/workspace/src/video/video_reader.cc:83: ERROR opening: /data2/local_datasets/jhlee39/FakeAVCeleb_v1.2/FakeVideo-RealAudio/Caucasian (American)/men/id00264/00257_1.mp4, No such file or directory
+[14:20:51] /github/workspace/src/video/video_reader.cc:83: ERROR opening: /data2/local_datasets/jhlee39/FakeAVCeleb_v1.2/FakeVideo-RealAudio/Caucasian (American)/men/id01182/00167_1.mp4, No such file or directory
+[14:20:51] /github/workspace/src/video/video_reader.cc:83: ERROR opening: /data2/local_datasets/jhlee39/FakeAVCeleb_v1.2/FakeVideo-RealAudio/Asian (East)/women/id09174/00015_id00137_L22Rc38U5BA.mp4, No such file or directory
+[14:20:51] /github/workspace/src/video/video_reader.cc:83: ERROR opening: /data2/local_datasets/jhlee39/FakeAVCeleb_v1.2/FakeVideo-RealAudio/Caucasian (European)/men/id00055/00120_id00183_z2DhZllPWUQ.mp4, No such file or directory
+[14:20:56] /github/workspace/src/video/video_reader.cc:83: ERROR opening: /data2/local_datasets/jhlee39/FakeAVCeleb_v1.2/FakeVideo-RealAudio/Asian (East)/women/id09175/00072_id00363_wavtolip.mp4, No such file or directory
+[14:20:56] /github/workspace/src/video/video_reader.cc:83: ERROR opening: /data2/local_datasets/jhlee39/FakeAVCeleb_v1.2/FakeVideo-FakeAudio/Asian (East)/men/id09143/00056_id01204_biYGqpYBp7o_faceswap_id03889_wavtolip.mp4, No such file or directory
+[14:20:56] /github/workspace/src/video/video_reader.cc:83: ERROR opening: /data2/local_datasets/jhlee39/FakeAVCeleb_v1.2/FakeVideo-FakeAudio/Asian (South)/men/id00350/00015_id00816_wavtolip.mp4, No such file or directory
+Traceback (most recent call last):
+  File "/data/jhlee39/workspace/repos/AVDFD/OpenAVFF/egs/../src/run_ft.py", line 181, in <module>
+    main()
+  File "/data/jhlee39/workspace/repos/AVDFD/OpenAVFF/egs/../src/run_ft.py", line 172, in main
+    train(cavmae_ft, train_loader, val_loader, args)
+  File "/data/jhlee39/workspace/repos/AVDFD/OpenAVFF/src/traintest_ft.py", line 378, in train
+    for i, (a_input, v_input, labels) in enumerate(train_loader):
+  File "/data/jhlee39/anaconda3/envs/AVFF/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 631, in __next__
+    data = self._next_data()
+  File "/data/jhlee39/anaconda3/envs/AVFF/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1326, in _next_data
+    return self._process_data(data)
+  File "/data/jhlee39/anaconda3/envs/AVFF/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1372, in _process_data
+    data.reraise()
+  File "/data/jhlee39/anaconda3/envs/AVFF/lib/python3.10/site-packages/torch/_utils.py", line 705, in reraise
+[14:20:56] /github/workspace/src/video/video_reader.cc:83: ERROR opening: /data2/local_datasets/jhlee39/FakeAVCeleb_v1.2/FakeVideo-RealAudio/African/men/id04727/00007_0.mp4, No such file or directory
+    raise exception
+RuntimeError: Caught RuntimeError in DataLoader worker process 3.
+Original Traceback (most recent call last):
+  File "/data/jhlee39/anaconda3/envs/AVFF/lib/python3.10/site-packages/torch/utils/data/_utils/worker.py", line 308, in _worker_loop
+    data = fetcher.fetch(index)  # type: ignore[possibly-undefined]
+  File "/data/jhlee39/anaconda3/envs/AVFF/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 51, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/data/jhlee39/anaconda3/envs/AVFF/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 51, in <listcomp>
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/data/jhlee39/workspace/repos/AVDFD/OpenAVFF/src/dataloader.py", line 259, in __getitem__
+    fbank, frames, label = self._augment_concat(index)
+  File "/data/jhlee39/workspace/repos/AVDFD/OpenAVFF/src/dataloader.py", line 207, in _augment_concat
+    fbank = self._concat_wav2fbank(video_name, video_name_1)
+  File "/data/jhlee39/workspace/repos/AVDFD/OpenAVFF/src/dataloader.py", line 144, in _concat_wav2fbank
+    waveform1, sr1 = torchaudio.load(filename1)
+  File "/data/jhlee39/anaconda3/envs/AVFF/lib/python3.10/site-packages/torchaudio/_backend/utils.py", line 205, in load
+    return backend.load(uri, frame_offset, num_frames, normalize, channels_first, format, buffer_size)
+  File "/data/jhlee39/anaconda3/envs/AVFF/lib/python3.10/site-packages/torchaudio/_backend/ffmpeg.py", line 297, in load
+    return load_audio(uri, frame_offset, num_frames, normalize, channels_first, format)
+  File "/data/jhlee39/anaconda3/envs/AVFF/lib/python3.10/site-packages/torchaudio/_backend/ffmpeg.py", line 88, in load_audio
+    s = torchaudio.io.StreamReader(src, format, None, buffer_size)
+  File "/data/jhlee39/anaconda3/envs/AVFF/lib/python3.10/site-packages/torio/io/_streaming_media_decoder.py", line 526, in __init__
+    self._be = ffmpeg_ext.StreamingMediaDecoder(os.path.normpath(src), format, option)
+RuntimeError: Failed to open the input "/data2/local_datasets/jhlee39/FakeAVCeleb_v1.2/RealVideo-RealAudio/African/men/id01207/00320.mp4" (No such file or directory).
+Exception raised from get_input_format_context at /__w/_temp/conda_environment_9285549986/conda-bld/torchaudio_1716983917643/work/src/libtorio/ffmpeg/stream_reader/stream_reader.cpp:42 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::string) + 0x57 (0x7ff0b4018897 in /data/jhlee39/anaconda3/envs/AVFF/lib/python3.10/site-packages/torch/lib/libc10.so)
+frame #1: c10::detail::torchCheckFail(char const*, char const*, unsigned int, std::string const&) + 0x64 (0x7ff0b3fc8b25 in /data/jhlee39/anaconda3/envs/AVFF/lib/python3.10/site-packages/torch/lib/libc10.so)
+frame #2: <unknown function> + 0x42334 (0x7ff054d1f334 in /data/jhlee39/anaconda3/envs/AVFF/lib/python3.10/site-packages/torio/lib/libtorio_ffmpeg6.so)
+frame #3: torio::io::StreamingMediaDecoder::StreamingMediaDecoder(std::string const&, std::optional<std::string> const&, std::optional<std::map<std::string, std::string, std::less<std::string>, std::allocator<std::pair<std::string const, std::string> > > > const&) + 0x14 (0x7ff054d21d34 in /data/jhlee39/anaconda3/envs/AVFF/lib/python3.10/site-packages/torio/lib/libtorio_ffmpeg6.so)
+frame #4: <unknown function> + 0x3aa4e (0x7ff04e112a4e in /data/jhlee39/anaconda3/envs/AVFF/lib/python3.10/site-packages/torio/lib/_torio_ffmpeg6.so)
+frame #5: <unknown function> + 0x32617 (0x7ff04e10a617 in /data/jhlee39/anaconda3/envs/AVFF/lib/python3.10/site-packages/torio/lib/_torio_ffmpeg6.so)
+frame #6: python() [0x4fd527]
+<omitting python frames>
+frame #8: python() [0x50924a]
+frame #9: python() [0x506f4c]
+frame #10: python() [0x4f7386]
+frame #11: <unknown function> + 0xf6cb (0x7ff0551536cb in /data/jhlee39/anaconda3/envs/AVFF/lib/python3.10/site-packages/torchaudio/lib/_torchaudio.so)
+frame #15: python() [0x506ab8]
+frame #28: python() [0x543113]
+frame #29: python() [0x542f78]
+frame #39: python() [0x508dee]
+frame #44: python() [0x506ab8]
+frame #54: python() [0x506ab8]
+frame #59: python() [0x531a47]
+frame #60: python() [0x5ceb89]
+frame #62: python() [0x5c6f1c]
+
+
