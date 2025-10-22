@@ -1,123 +1,107 @@
 # 🧩 Refined RVFA Dataset Preparation
 
 This document describes how to generate the **Refined RealVideo-FakeAudio (RVFA)** dataset.  
-The entire process is based on **Conda environments**, and after completing all steps,  
+The process is based on **Conda environments**, and after completing all steps,  
 you will have a refined version of the RVFA dataset ready for training.
 
 ---
 
-## 🧱 Step 0. Environment Setup
+## 🧱 Step 0. Environment Setup (Preprocessing)
 
-Move to the preprocessing directory and create the environment `AVDFD`.
+Move to the preprocessing directory and create the environment named `preprocessing`.
 
 ```bash
 cd data/preprocessing
-conda create -n AVDFD python=3.10
-conda activate AVDFD
-pip install -r requirements.txt
+conda create -n preprocessing python=3.10 -y
+conda activate preprocessing
 ```
 
-> ⚙️ Recommended PyTorch version (for CUDA 12.x)
-> ```bash
-> pip install torch==2.4.0 torchvision==0.19.0 torchaudio==2.4.0
-> ```
+### ⚙️ Recommended PyTorch version (for CUDA 12.x)
+
+```bash
+pip install torch==2.4.0 torchvision==0.19.0 torchaudio==2.4.0
+```
+
+Do not install additional requirements here — the rest will be handled later after cloning **Seed-VC**.
 
 ---
 
 ## 📦 Step 1. VoxCeleb2 Download (filtered by RVRA IDs)
 
-Run the following script to download **only the speaker IDs** that exist in the  
-`RealVideo-RealAudio (RVRA)` portion of FakeAVCeleb.  
-This filtered download is less than **12 GB** in total.
+Run the following script to download only the speaker IDs that exist in the RealVideo-RealAudio (RVRA) portion of FakeAVCeleb.  
+This filtered download is less than 12 GB in total.
 
 ```bash
 bash down_vox2.sh
 ```
 
-> ✅ **Selective download mode**  
-> The script automatically scans RVRA to collect all unique IDs,  
-> and downloads only the corresponding VoxCeleb2 utterances for those speakers.
+✅ **Selective download mode:** The script automatically scans RVRA to collect all unique IDs and downloads only the corresponding VoxCeleb2 utterances for those speakers.
 
----
-
-### ⚠️ Downloading the full VoxCeleb2 dataset (optional)
-
-If you want to store the **entire VoxCeleb2 dataset** locally  
-(about **436 GB**, ~1 million utterances, 6 k speakers),  
-you can run the following script:
+⚠️ **Full VoxCeleb2 download (optional)** — about 436 GB total:
 
 ```bash
 bash voxceleb2_download.sh
 ```
 
-> ⚠️ **Warning:** The full VoxCeleb2 dataset is extremely large.  
-> It is **not recommended** unless you have sufficient SSD/NAS storage.  
-> The selective 12 GB version is usually sufficient for all experiments.
+If you choose the full download mode, install `hf_transfer` in your preprocessing environment:
+
+```bash
+conda install -c conda-forge hf_transfer -y
+```
+
+⚠️ **Warning:** The full VoxCeleb2 dataset is extremely large. Use the selective version unless you have sufficient SSD/NAS storage.
 
 ---
 
 ## 🧬 Step 2. Voice Cloning (Seed-VC)
 
-Refined RVFA is created using **Seed-VC (Voice Conversion)** to generate  
-two difficulty levels: **hardest** and **harder** samples.
+Refined RVFA is created using **Seed-VC: Towards Voice Conversion for All with Seed Learning**,  
+a state-of-the-art open-source voice conversion model.  
+Official implementation: [Seed-VC GitHub](https://github.com/Plachtaa/seed-vc)
 
-### 2-1️⃣ Clone the Seed-VC repository and set up its environment
+This step runs entirely within the same preprocessing environment — no need to create a new one.
+
+### 2-1️⃣ Clone the Seed-VC repository
 
 ```bash
 cd data/preprocessing
 git clone https://github.com/Plachtaa/seed-vc.git
 ```
 
-Because Seed-VC uses different library versions (Hydra, PyTorch, etc.),  
-create a separate environment named `seedvc`.
+### 2-2️⃣ Install Seed-VC dependencies
 
 ```bash
-conda create -n seedvc python=3.10
-conda activate seedvc
 pip install -r seed-vc/requirements.txt
+pip install datasets>=2.20.0 tqdm>=4.66.0
 ```
 
----
-
-### 2-2️⃣ Install the ECAPA model dependency
-
-The **speechbrain** package is required for ECAPA-TDNN-based speaker similarity.
+Additionally, install `speechbrain` for ECAPA-based similarity scoring:
 
 ```bash
 pip install speechbrain
 ```
 
-> 💡 The `speechbrain/spkrec-ecapa-voxceleb` model is used  
-> to find the **most similar reference** for each speaker within VoxCeleb2  
-> (for the *harder* case).
+💡 The `speechbrain/spkrec-ecapa-voxceleb` model is used to find the most similar reference for each speaker within VoxCeleb2.
 
----
-
-### 2-3️⃣ Add the Refined Inference Scripts
-
-Copy the following two files into the `seed-vc` directory:
+### 2-3️⃣ Move Inference Scripts
 
 ```bash
-multi_inference_v2.py
-multi_inference_v2.sh
+mv data/preprocessing/multi_inference_v2.py seed-vc/
+mv data/preprocessing/multi_inference_v2.sh seed-vc/
 ```
 
-> 🧩 These scripts automatically generate Refined RVFA:
-> - **hardest** → self-reference case  
-> - **harder** → ECAPA-selected reference case  
->
-> Results will be saved in  
-> `RealVideo-FakeAudio-Refine/hardest` and `RealVideo-FakeAudio-Refine/harder`.
+🧩 These scripts automatically generate Refined RVFA:
 
----
+- **hardest** → self-reference case  
+- **harder** → ECAPA-selected reference case  
+
+Results will be saved in `RealVideo-FakeAudio-Refine/hardest` and `RealVideo-FakeAudio-Refine/harder`.
 
 ### 2-4️⃣ Enter the Seed-VC directory
 
 ```bash
 cd seed-vc
 ```
-
----
 
 ### 2-5️⃣ Run the Refined Inference
 
@@ -127,32 +111,61 @@ Use the provided SLURM script to process all files:
 sbatch multi_inference_v2.sh
 ```
 
-> ⚙️ Key arguments inside the script:
-> - `SRC_ROOT`: Path to *RealVideo-RealAudio*  
-> - `DST_ROOT`: Output path (*RealVideo-FakeAudio-Refine*)  
-> - `VOX_ROOT`: VoxCeleb2 data path  
-> - `--seed-vc-root`: Path to the seed-vc repository (relative or absolute)
->
-> Example output:
-> ```
-> [DONE][GPU0] hardest=120 harder=120
-> ================================
-> hardest : 120
-> harder  : 120
-> =================================
-> ```
+⚙️ **Key arguments inside the script:**
+- `SRC_ROOT`: Path to RealVideo-RealAudio  
+- `DST_ROOT`: Output path (RealVideo-FakeAudio-Refine)  
+- `VOX_ROOT`: VoxCeleb2 data path  
+- `--seed-vc-root`: Path to the seed-vc repository
 
-After completion, both **harder** and **hardest** versions of Refined RVFA will be generated.
+Example output:
+
+```bash
+[DONE][GPU0] hardest=120 harder=120
+================================
+hardest : 120
+harder  : 120
+================================
+```
+
+After completion, both harder and hardest versions of Refined RVFA will be generated.
 
 ---
 
-## 🎯 Step 3. Return to the AVDFD Environment
+## 🧱 Step 3. Main Environment Setup (AVDFD)
 
-Deactivate the `seedvc` environment and return to `AVDFD`.
+Now we create the main training environment named `AVDFD`.  
+We use a separate environment because **Seed-VC** and **OpenAVFF** have conflicting dependencies.
+
+The baseline is based on **AVFF: Audio-Visual Forgery Face Dataset (CVPR 2024)**,  
+implemented using [OpenAVFF (GitHub)](https://github.com/JoeLeelyf/OpenAVFF).
+
+### 3-1️⃣ Create the AVDFD environment
 
 ```bash
-conda deactivate
+conda create -n AVDFD python=3.10 -y
 conda activate AVDFD
+```
+
+Install the following packages:
+
+```bash
+conda install pytorch==2.3.1 torchvision==0.18.1 torchaudio==2.3.1 pytorch-cuda=12.1 -c pytorch -c nvidia
+pip install -r OpenAVFF/requirements.txt
+```
+
+### 3-2️⃣ Download and Prepare Stage2 Weights
+
+Download **Stage2 Weights** from the [OpenAVFF repository](https://github.com/JoeLeelyf/OpenAVFF) and save them to `OpenAVFF/checkpoints/`.
+
+### 3-3️⃣ Convert Stage2 to Stage3 Initialization
+
+Inside the `OpenAVFF` folder, run the following code:
+
+```bash
+python convert_stage2_to_stage3.py \
+--stage2 checkpoints/stage2_pretrained.pth \
+-out checkpoints/stage3_init_from_stage2.pth \
+--num_classes 2
 ```
 
 ---
@@ -161,18 +174,18 @@ conda activate AVDFD
 
 You can now train your model using the generated data located in:
 
-```
+```bash
 /RealVideo-FakeAudio-Refine/harder
 /RealVideo-FakeAudio-Refine/hardest
 ```
 
-Training scripts are available in the [`train/`](../train) directory.
+Training scripts are available in the `train/` directory.
 
 ---
 
 ## 📁 Directory Structure Example
 
-```
+```bash
 FakeAVCeleb_v1.2/
 ├── RealVideo-RealAudio/
 ├── RealVideo-FakeAudio-Refine/
@@ -182,33 +195,11 @@ FakeAVCeleb_v1.2/
 │   └── hardest/
 │       ├── race/gender/id00001/clip001.mp4
 │       └── ...
-└── ...
+├── data/
+│   └── preprocessing/
+│       └── seed-vc/
+│           ├── multi_inference_v2.py
+│           ├── multi_inference_v2.sh
+│           └── ...
+└── train/
 ```
-
----
-
-## 🧠 Additional Information
-
-| Item | Description |
-|------|--------------|
-| **VoxCeleb2 (Full)** | ≈ 436 GB (1,092,009 utterances / 6,112 speakers) |
-| **Filtered VoxCeleb2** | ≤ 12 GB (only IDs overlapping with RVRA) |
-| **SpeechBrain Model** | [`speechbrain/spkrec-ecapa-voxceleb`](https://huggingface.co/speechbrain/spkrec-ecapa-voxceleb) |
-| **Seed-VC Repo** | [https://github.com/Plachtaa/seed-vc](https://github.com/Plachtaa/seed-vc) |
-
----
-
-## 🧩 Summary
-
-| Step | Task | Environment |
-|------|------|--------------|
-| Step 0 | Environment setup (`AVDFD`) | conda |
-| Step 1 | Download VoxCeleb2 subset | AVDFD |
-| Step 2 | Generate Refined RVFA (Seed-VC) | seedvc |
-| Step 3 | Switch back to AVDFD | conda |
-| Step 4 | Model training | AVDFD |
-
----
-
-> ✅ After completing these steps, you will have the **Refined RVFA dataset**  
-> containing both *harder* and *hardest* voice-converted samples ready for training.

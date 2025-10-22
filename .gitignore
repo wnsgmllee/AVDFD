@@ -1,0 +1,14 @@
+# 1. data/FakeAVCeleb_Refine 폴더 안의 내용은 무시하되 폴더 자체는 남김
+data/FakeAVCeleb_Refine/*
+!data/FakeAVCeleb_Refine/.gitkeep
+
+# 2. data/preprocessing/logs 폴더 자체를 무시
+data/preprocessing/logs/
+
+# 3. data/preprocessing/seed-vc 폴더 안의 내용만 무시 (폴더는 남김)
+data/preprocessing/seed-vc/*
+!data/preprocessing/seed-vc/.gitkeep
+
+# 4. OpenAVFF/checkpoints 폴더 안의 특정 파일만 무시
+OpenAVFF/checkpoints/stage3_init_from_stage2.pth
+OpenAVFF/checkpoints/stage-2.pth

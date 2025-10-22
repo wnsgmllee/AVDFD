@@ -1,5 +1,4 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
+# Harder/Hardest sample 생성용
 
 import os, sys, argparse, subprocess, random, tempfile, json, shutil, hashlib
 from pathlib import Path
