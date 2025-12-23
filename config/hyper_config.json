@@ -1,0 +1,9 @@
+{
+  "lr": [3e-5, 1e-4],
+  "a2v_nhead": [4],
+  "a2v_layers": [2, 4, 6],
+  "backbone_lr_scale": [0.0, 0.1, 0.05],
+  "freeze_vis_enc": [false],
+  "lambda_align": [0.1, 0.5],
+  "margin_align": [0.1, 0.5]
+}

@@ -1,0 +1,26 @@
+# data/preprocessing/logs 폴더 자체를 무시
+data/preprocessing/logs/
+
+# data/preprocessing/seed-vc 폴더 자체를 무시
+data/preprocessing/seed-vc/
+
+# OpenAVFF/checkpoints 폴더 안의 특정 파일만 무시
+OpenAVFF/checkpoints/stage3_init_from_stage2.pth
+OpenAVFF/checkpoints/stage-2.pth
+
+# data 폴더 안의 모든 내용을 무시
+OpenAVFF/data/*
+# 하지만 data 폴더 자체는 무시하지 않음
+!OpenAVFF/data/
+
+OpenAVFF/egs/misclassified_best_auc.txt
+
+__pycache__/
+
+data/FakeAVCeleb_Refine/*
+!data/FakeAVCeleb_Refine
+
+data/elements/*
+!data/elements
+
+.marlin
